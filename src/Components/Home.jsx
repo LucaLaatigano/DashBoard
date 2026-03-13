@@ -1,5 +1,4 @@
 import SideBar from "./SideBar.jsx"
-import Principal from "./Principal.jsx";
 
 const Home = () =>{
     return(

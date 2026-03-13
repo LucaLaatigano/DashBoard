@@ -2,6 +2,9 @@ import {Routes, Route} from "react-router"
 import Home from "./Components/Home";
 import Analytics from "./Components/Analytics";
 import SideBar from "./Components/SideBar";
+import Sales from "./Components/Sales"
+import Settings from "./Components/Settings"
+import Users from "./Components/Users"
 const App = () => {
     return(
         <div>
