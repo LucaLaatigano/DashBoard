@@ -4,8 +4,7 @@ import Principal from "./Principal.jsx";
 const Home = () =>{
     return(
         <div className="flex">
-            <SideBar />
-            <Principal />
+            
         </div>
     )
 }
