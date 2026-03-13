@@ -8,7 +8,7 @@ export default function NavBar(){
         alert("submited with enter")
     }
     return(
-        <div className="flex justify-between pl-5 w-280 h-20 mb-3">
+        <div className="scale-z-100 flex justify-between shadow-lg pl-5 w-280 h-20 mb-3 border-b-2 border-zinc-300 bg-white border-b">
             <form onSubmit={handleSubmit}>
                 <input type="text" className="w-120 h-13 mt-4 pl-5 text-zinc-800 outline-none border border-zinc-300 border-3 rounded-2xl focus:bg-slate-900/10" 
                 placeholder="🔍 Search"

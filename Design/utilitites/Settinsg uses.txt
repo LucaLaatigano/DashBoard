@@ -1,0 +1,24 @@
+Settinsg uses
+
+1. El Formulario de Perfil (Lo más importante)
+Esta parte es ideal para practicar el manejo de formularios y estados en React.
+
+Campos funcionales: Full Name, Email y Title.
+
+Cómo lo haces: Usas un estado (useState) para cada campo. Cuando el usuario escribe, actualizas el estado. Cuando hace clic en "Save", podrías mostrar un mensaje de "Perfil actualizado" usando una librería como Sonner o React Hot Toast.
+
+La Foto: El botón de "Change Photo" puede abrir el selector de archivos de la computadora.
+
+2. Los Toggles de Notificaciones (Interactividad rápida)
+Esto es lo más fácil y gratificante de ver funcionando.
+
+Funcionalidad: Los interruptores azules de Email Notifications.
+
+Cómo lo haces: Cada toggle es un booleano (true/false). Al hacer clic, cambias el color (de gris a azul) y el estado. Es perfecto para practicar el renderizado condicional de clases de Tailwind.
+
+3. Simulación de Datos Reales (Con tus APIs)
+Aquí es donde conectas lo que hablamos antes:
+
+Carga inicial: Podrías hacer que, al entrar a Settings, el nombre y el mail se llenen automáticamente con datos traídos de JSONPlaceholder o RandomUser.
+
+Beneficio: Así no ves el formulario vacío, sino que parece que realmente estás editando el perfil de un usuario del sistema.

@@ -8,11 +8,11 @@ import Users from "./Components/Users"
 import NavBar from "./Components/NavBar";
 const App = () => {
     return(
-        <div className="flex">
+        <div className="flex min-h-screen bg-zinc-200">
             <SideBar/>
             <div className="flex-1 flex flex-col">
                 <NavBar/>
-                <main>
+                <main className="flex-1">
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/analytics" element={<Analytics/>}/>

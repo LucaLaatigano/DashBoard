@@ -1,0 +1,44 @@
+API FOR DASHBOARD
+
+1. Librería para los Gráficos (El Motor Visual)
+En lugar de pelearte con cientos de div y alturas manuales, esta librería hace todo el trabajo matemático y visual por vos.
+
+Nombre: Recharts
+
+Para qué sirve: Es una librería de componentes de React. Solo le pasás un "Array de Objetos" con números y ella dibuja automáticamente las líneas, áreas y ejes.
+
+Instalación: npm install recharts
+
+Dato que recibe: Un array como este: [{ name: 'Ene', ventas: 400 }, { name: 'Feb', ventas: 700 }].
+
+Ventaja: Es ultra fácil de integrar con Tailwind CSS para que el gráfico sea responsivo.
+
+2. Las APIs de Datos (La Fuente de Información)
+Estas son las que vas a consultar usando fetch en tus componentes de React para llenar los textos y las imágenes.
+
+A. RandomUser API
+Uso en tu diseño: Sección de "Recent Activity" (los avatares redondos de la derecha).
+
+Endpoint: https://randomuser.me/api/?results=5
+
+Qué te devuelve: Fotos de perfil (picture.medium), nombres completos (name.first) y correos.
+
+Es ideal porque: Te da fotos reales de personas para que el diseño no se vea vacío.
+
+B. Faker API
+Uso en tu diseño: Las "Stats Cards" superiores (Total Sales, New Users, Active Projects).
+
+Endpoint: https://fakerapi.it/api/v1/companies?_quantity=1
+
+Qué te devuelve: Valores numéricos aleatorios, porcentajes de impuestos, ingresos y nombres de empresas.
+
+Es ideal porque: Los datos son variados y sirven para simular un entorno de negocios real.
+
+C. JSONPlaceholder (Opcional)
+Uso en tu diseño: La lista de "Users" en el menú lateral o una tabla central.
+
+Endpoint: https://jsonplaceholder.typicode.com/users
+
+Qué te devuelve: Una lista de 10 usuarios con nombre, empresa y ciudad.
+
+Es ideal porque: Es la más estable y sencilla para practicar cómo listar elementos con .map().
