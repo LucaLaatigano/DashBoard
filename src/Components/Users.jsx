@@ -177,7 +177,7 @@ export default function Users() {
                     </div>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto h-100">
                     <table className="w-full text-left border-collapse divide-y divide-gray-200 text-gray-700">
                         <thead className="bg-gray-50 text-gray-500 uppercase text-xs font-semibold">
                             <tr>
