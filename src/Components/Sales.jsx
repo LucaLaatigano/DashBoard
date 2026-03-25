@@ -37,7 +37,7 @@ export default function Sales() {
     }))
     const conversionData = [
         { name: 'Completed', value: 65, color: '#3b82f6' },
-        { name: 'Pending', value: 35, color: '#6b7280' },
+        { name: 'Pending', value: 35, color: '#9ca3af' },
     ]
 
     return (
@@ -116,8 +116,8 @@ export default function Sales() {
                                         data={conversionData}
                                         cx="50%"
                                         cy="50%"
-                                        innerRadius={25}
-                                        outerRadius={35}
+                                        innerRadius={20}
+                                        outerRadius={40}
                                         paddingAngle={0}
                                         dataKey="value"
                                         stroke="none"

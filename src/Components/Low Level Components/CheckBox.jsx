@@ -7,9 +7,7 @@ export default function CheckBox({ checked, onChange }) {
         checked={checked}
         onChange={onChange}
       />
-      {/* IMPORTANTE: Agregué 'relative' aquí abajo. 
-          Ahora el círculo blanco sabe que su "top" y "left" son respecto a este div gris.
-      */}
+
       <div className="relative w-11 h-6 bg-gray-200 rounded-full peer 
                       peer-focus:ring-2 peer-focus:ring-gray-200 
                       peer-checked:bg-blue-600 
