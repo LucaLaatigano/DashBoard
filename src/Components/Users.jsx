@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import { getUsers } from "../Services/users";
 import defaultImg from "../Images/empresario.jpg"
+import { useUserContext } from "../Context/UsersContext";
 export default function Users() {
+    const { users, setUsers, loading } = useUserContext()
     const [inputField, setInputField] = useState("");
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [selectedUser, setSelectedUser] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [newPerson, setNewPerson] = useState(false)
@@ -21,24 +21,6 @@ export default function Users() {
     const newUserModal = useRef(null)
     const fileRef = useRef(null)
     const newAvatarRef = useRef(null)
-
-    const loadUsers = async () => {
-        try {
-            setLoading(true);
-            const savedData = localStorage.getItem('users')
-            if (savedData) {
-                setUsers(JSON.parse(savedData))
-            } else {
-                const data = await getUsers();
-                setUsers(data);
-                localStorage.setItem('users', JSON.stringify(data))
-            }
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const allFilteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(inputField.toLowerCase())
@@ -104,10 +86,6 @@ export default function Users() {
             reader.readAsDataURL(file)
         }
     }
-
-    useEffect(() => {
-        loadUsers();
-    }, []);
 
     useEffect(() => {
         setCurrentPage(1);

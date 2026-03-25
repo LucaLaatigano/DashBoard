@@ -187,7 +187,7 @@ export default function Analytics() {
                 </div>
                 <div className="w-131 h-50 bg-white rounded-2xl flex p-3 gap-5 shadow-sm overflow-hidden">
                     <h3 className="font-bold text-lg mb-2 text-slate-800  ">Traffic by Country</h3>
-                    <div className="flex-1 w-full h-full -mt-5">
+                    <div className="flex-1 w-full h-full">
                         <WorldMap />
                     </div>
                 </div>

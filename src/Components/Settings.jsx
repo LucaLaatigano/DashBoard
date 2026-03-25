@@ -3,20 +3,11 @@ import defaultImg from "../Images/empresario.jpg"
 import { IoKeyOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoIosTimer } from "react-icons/io";
-import cvJohnSmith from "/src/images/cv-john smith.pdf"
 import CheckBox from "./Low Level Components/CheckBox";
 import { Link } from "react-router"
+import { useProfileContext } from "../Context/ProfileContext";
 export default function Settings() {
-    const [formData, setFormData] = useState(() => {
-        const savedData = localStorage.getItem('userProfile')
-        return savedData ? JSON.parse(savedData) : {
-            fullName: "John Smith",
-            email: "john.smith@gmail.com",
-            title: "UX Lead",
-            profileImage: defaultImg,
-            cv: cvJohnSmith
-        }
-    })
+    const { formData, setFormData } = useProfileContext()
     const [isSaved, setIsSaved] = useState(false)
     const [isEnabled, setIsEnabled] = useState(() => {
         const savedValues = localStorage.getItem('checkBoxes')
@@ -71,7 +62,6 @@ export default function Settings() {
     }
 
     const handleSave = () => {
-        localStorage.setItem('userProfile', JSON.stringify(formData))
         setIsSaved(true)
         setTimeout(() => {
             setIsSaved(false)
@@ -90,10 +80,10 @@ export default function Settings() {
     }
     return (
         <div className="pl-10 pt-2">
-            <h3 className="text-3xl text-slate-900 font-bold mb-3">Settings</h3>
+            <h3 className="text-3xl text-gray-800 font-bold mb-3">Settings</h3>
             <div className="flex">
                 <div className="mt-5 w-170 h-138 bg-white rounded-2xl">
-                    <h3 className="text-slate-900 font-bold text-2xl pt-3 pl-5">
+                    <h3 className="text-gray-800 font-bold text-2xl pt-3 pl-5">
                         Profile Settings
                     </h3>
                     <div className="flex">
@@ -143,7 +133,7 @@ export default function Settings() {
                 </div>
                 <div className="flex flex-wrap ml-10 gap-6 mt-5">
                     <div className="w-80 h-65 bg-white rounded-2xl pl-3 pr-2">
-                        <h3 className="font-bold text-2xl pl-3 pt-2 pb-3">
+                        <h3 className="font-bold text-gray-800 text-2xl pl-3 pt-2 pb-3">
                             Account Security
                         </h3>
                         <div className="flex gap-10 ml-3 mt-3">
@@ -170,28 +160,28 @@ export default function Settings() {
                         </Link>
                     </div>
                     <div className="w-80 h-65 bg-white rounded-2xl pl-3 pr-2 flex flex-col gap-3">
-                        <h3 className="font-bold text-2xl pl-3 pt-2 pb-3">Billing Plan</h3>
+                        <h3 className="font-bold text-2xl pl-3 pt-2 text-gray-800">Billing Plan</h3>
                         <div className="flex flex-col pl-3">
                             <label className="text-2xl font-light">Current Plan</label>
-                            <h3 className="font-bold text-xl">Pro Team</h3>
+                            <h3 className="font-bold text-xl text-gray-800">Pro Team</h3>
                         </div>
                         <div className="flex flex-col pl-3">
                             <label className="text-2xl font-light">Payment Method</label>
-                            <h3 className="font-bold text-xl">Stored Credit Card Infor</h3>
+                            <h3 className="font-bold text-xl text-gray-800">Stored Credit Card Infor</h3>
                         </div>
                         <div className="flex justify-end">
                             <button onClick={handleReset} className="w-35 h-10 border-2 border-red-500 text-red-400 hover:bg-zinc-100  hover:cursor-pointer rounded-2xl">Delete Account</button>
                         </div>
                     </div>
                     <div className="w-80 h-65 bg-white rounded-2xl pl-3 pr-2 flex flex-col gap-2">
-                        <h3 className="font-bold text-2xl pl-3 pt-2">Billing Plan</h3>
+                        <h3 className="font-bold text-2xl pl-3 pt-2 text-gray-800">Billing Plan</h3>
                         <div className="flex flex-col pl-3">
                             <label className="text-2xl font-light">Current Plan</label>
-                            <h3 className="font-bold text-xl">Pro Team</h3>
+                            <h3 className="font-bold text-xl text-gray-800">Pro Team</h3>
                         </div>
                         <div className="flex flex-col pl-3">
                             <label className="text-2xl font-light">Payment Method</label>
-                            <h3 className="font-bold text-xl">Stored Credit Card Infor</h3>
+                            <h3 className="font-bold text-xl text-gray-800">Stored Credit Card Infor</h3>
                         </div>
                         <div className="flex flex-col ml-3">
                             <label className="text-2xl font-light">Recent Invoices</label>
@@ -203,7 +193,7 @@ export default function Settings() {
                         </div>
                     </div>
                     <div className="w-80 h-65 bg-white rounded-2xl pl-3 pr-2 flex flex-col gap-2">
-                        <h3 className="text-2xl font-bold pt-2 pl-3">Email Notifications</h3>
+                        <h3 className="text-2xl font-bold pt-2 pl-3 text-gray-800">Email Notifications</h3>
                         <div className="flex flex-col gap-6">
                             <div className="ml-3 flex gap-10">
                                 <label className="font-light text-xl">Newletter</label>

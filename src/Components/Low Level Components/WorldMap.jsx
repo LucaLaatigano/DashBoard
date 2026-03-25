@@ -43,7 +43,7 @@ export default function WorldMap() {
                             top: '15%',           // Bajamos un poco para que no pegue arriba
                             bottom: '15%',        // Subimos un poco del borde inferior
                             layoutCenter: ['50%', '50%'], // Centro matemático del div
-                            layoutSize: '100%',   // Tamaño compacto para que no se "caiga" ni explote
+                            layoutSize: '120%',   // Tamaño compacto para que no se "caiga" ni explote
 
                             // Estilo de los países (bordes finos, color base)
                             itemStyle: {
