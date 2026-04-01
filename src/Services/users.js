@@ -1,6 +1,6 @@
 const ENDPOINT = "https://jsonplaceholder.typicode.com/users";
 
-export const getUsers = async () => {
+const getUsers = async () => {
 
     const response = await fetch(ENDPOINT);
     const data = await response.json();
@@ -11,3 +11,5 @@ export const getUsers = async () => {
 
     return usersWithAvatars;
 };
+
+export default getUsers
