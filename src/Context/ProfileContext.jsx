@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, createContext } from "react"
-import cvJohnSmith from "/src/images/cv-john smith.pdf"
+import cvJohnSmith from "/src/images/cv-john-smith.pdf"
 import defaultImg from "../Images/empresario.jpg"
 
 const profileContext = createContext()

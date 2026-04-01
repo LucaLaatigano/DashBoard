@@ -3,7 +3,7 @@ import defaultImg from "../Images/empresario.jpg"
 import { IoKeyOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoIosTimer } from "react-icons/io";
-import CheckBox from "./Low Level Components/CheckBox";
+import CheckBox from "./low-level-components/CheckBox";
 import { Link } from "react-router"
 import { useProfileContext } from "../Context/ProfileContext";
 

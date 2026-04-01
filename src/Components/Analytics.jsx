@@ -13,7 +13,7 @@ import {
     Pie,
     Cell
 } from 'recharts';
-import WorldMap from './Low Level Components/WorldMap';
+import WorldMap from './low-level-components/WorldMap';
 
 export default function Analytics() {
     const activeUsers = Array.from({ length: 20 }, (_, i) => ({ users: faker.number.int({ min: 10, max: 1000 }) }));
