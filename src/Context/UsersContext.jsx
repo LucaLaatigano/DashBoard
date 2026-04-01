@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react"
-
+import getUsers from "../Services/users"
 const usersContext = createContext()
 
 export const useUserContext = () => useContext(usersContext)
