@@ -39,10 +39,10 @@ const Home = () => {
 
     useGSAP(() => {
         gsap.from(".stat-card", {
-            y: 30,
+            yPercent: 50,
             opacity: 0,
-            stagger: 0.1,
-            duration: 0.8,
+            stagger: 0.3,
+            duration: 0.5,
             ease: "power2.out"
         });
 
