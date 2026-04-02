@@ -14,11 +14,64 @@ import {
     Cell
 } from 'recharts';
 import WorldMap from './low-level-components/WorldMap';
-
+import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
+import { SplitText, ScrollTrigger } from 'gsap/all';
+import { useRef } from 'react';
+gsap.registerPlugin(ScrollTrigger);
 export default function Analytics() {
     const activeUsers = Array.from({ length: 20 }, (_, i) => ({ users: faker.number.int({ min: 10, max: 1000 }) }));
     const pageViews = Array.from({ length: 10 }, (_, i) => ({ day: i + 1, views: faker.number.int({ min: 10000, max: 100000 }) }));
     const conversioRate = Array.from({ length: 20 }, (_, i) => ({ rate: faker.number.int({ min: 0, max: 100 }) }));
+    const scrollDiv = useRef()
+    useGSAP(() => {
+        const titleSplit = new SplitText(".title", { type: "chars, words" })
+        gsap.from(titleSplit.chars, {
+            yPercent: 100,
+            stagger: 0.03,
+            duration: 0.5,
+            ease: "power1.in"
+        })
+
+        gsap.from(".div", {
+            y: 30,
+            stagger: 0.2,
+            duration: 0.5,
+            opacity: 0,
+            delay: 0.9,
+            ease: "power1.out"
+        })
+        gsap.from(".chart-content", {
+            x: -40,
+            opacity: 0,
+            duration: 0.8,
+            delay: 1.1,
+            ease: "back.in"
+        })
+        gsap.from(".map-content", {
+            x: 40,
+            opacity: 0,
+            duration: 0.8,
+            delay: 1.1,
+            ease: "back.in"
+        })
+
+        gsap.from(".rest-content", {
+            y: 100,
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: scrollDiv.current,
+                start: "top 90%",
+                scroller: "#main-scroll",
+                toggleActions: "play none none reverse",
+            }
+        });
+    })
+
     const trafficData = [
         { name: 'Organic Search', value: 45, users: 25500, color: '#9ca3af' },
         { name: 'Direct', value: 25, users: 15800, color: '#3b82f6' },
@@ -39,11 +92,11 @@ export default function Analytics() {
     }));
 
     return (
-        <div className="p-4 md:p-8 w-full max-w-7xl mx-auto min-h-screen overflow-y-auto">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">Analytics Overview</h3>
+        <div className="p-4 md:p-8 w-full max-w-7xl mx-auto min-h-screen overflow-hidden">
+            <h1 className="title text-3xl font-bold mb-6 text-gray-800">Analytics Overview</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48">
-                    <div className='flex justify-between px-4 mb-2'>
+                <div className="div bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48">
+                    <div className=' flex justify-between px-4 mb-2'>
                         <div>
                             <span className='font-semibold text-gray-500 text-sm uppercase'>Active Users</span>
                             <h3 className="text-2xl font-bold text-gray-800">2.174</h3>
@@ -67,7 +120,7 @@ export default function Analytics() {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div className="bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48">
+                <div className="div bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48">
                     <div className='flex justify-between px-4 mb-2'>
                         <div>
                             <span className='font-semibold text-gray-500 text-sm uppercase'>Page Views</span>
@@ -85,7 +138,7 @@ export default function Analytics() {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div className="bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48 md:col-span-2 lg:col-span-1">
+                <div className="div bg-white rounded-2xl pt-4 shadow-sm border border-gray-100 flex flex-col h-48 md:col-span-2 lg:col-span-1">
                     <div className='flex justify-between px-4 mb-2'>
                         <div>
                             <span className='font-semibold text-gray-500 text-sm uppercase'>Conversion Rate</span>
@@ -104,8 +157,8 @@ export default function Analytics() {
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-15">
+                <div className="chart-content bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <h3 className="font-bold text-lg mb-4 text-slate-800">User Traffic Sources</h3>
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         <div className="w-full sm:w-1/2 h-48">
@@ -142,15 +195,15 @@ export default function Analytics() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col min-h-[300px]">
+                <div className="map-content bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col min-h-[300px]">
                     <h3 className="font-bold text-lg mb-4 text-slate-800">Traffic by Country</h3>
                     <div className="flex-1 w-full bg-slate-50 rounded-xl overflow-hidden">
                         <WorldMap />
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <div ref={scrollDiv} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-15">
+                <div className="rest-content lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <h3 className="font-bold text-lg mb-4 text-slate-800">Page Views & Event Actions</h3>
                     <div className='w-full h-64'>
                         <ResponsiveContainer width="100%" height="100%">
@@ -171,7 +224,7 @@ export default function Analytics() {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div className="rest-content bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <h3 className="font-bold text-lg mb-4 text-slate-800">Popular Pages</h3>
                     <div className="flex flex-col gap-5">
                         {popularPages.map((page) => (

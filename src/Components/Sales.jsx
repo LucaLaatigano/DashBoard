@@ -13,8 +13,39 @@ import {
     Pie,
     Cell
 } from 'recharts';
+import { useGSAP } from "@gsap/react"
+import { SplitText } from 'gsap/all';
+import { gsap } from 'gsap';
+import { useRef } from 'react';
 
 export default function Sales() {
+    const container = useRef()
+    useGSAP(() => {
+        const titleSplit = new SplitText(".title", { type: "chars, words" })
+        gsap.from(titleSplit.chars, {
+            yPercent: 100,
+            stagger: 0.03,
+            duration: 0.5,
+            opacity: 0,
+            ease: "power1.in"
+        })
+        gsap.from(".div", {
+            y: 30,
+            stagger: 0.2,
+            duration: 0.5,
+            opacity: 0,
+            delay: 0.8,
+            ease: "power1.out"
+        })
+        gsap.from(".chart-content", {
+            scale: 0.90,
+            opacity: 0,
+            duration: 0.6,
+            delay: 1
+        })
+    }, { scope: container })
+
+
     const topProducts = [
         { id: 1, name: 'Core UI Kit', units: 125, price: '$12,500', icon: '🎨' },
         { id: 2, name: 'Analytics Dashboard', units: 98, price: '$9,800', icon: '📈' },
@@ -41,13 +72,13 @@ export default function Sales() {
     ];
 
     return (
-        <div className='flex flex-col lg:flex-row gap-6 p-4 lg:p-7 min-h-screen'>
+        <div ref={container} className='flex flex-col lg:flex-row gap-6 p-4 lg:p-7 min-h-screen'>
             <div className='flex flex-col flex-1 gap-6 lg:gap-8'>
                 <div className='mb-2'>
-                    <h1 className='text-3xl font-extrabold text-gray-900'>Sales Overview</h1>
+                    <h1 className='title text-3xl font-extrabold text-gray-800'>Sales Overview</h1>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
-                    <div className='h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
+                    <div className='div h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
                         <div>
                             <label className='font-bold text-lg text-gray-500'>Total Revenue</label>
                             <h3 className="text-3xl font-bold text-gray-800">$12,875</h3>
@@ -70,7 +101,7 @@ export default function Sales() {
                             <span className="text-gray-400 text-xs">este mes</span>
                         </div>
                     </div>
-                    <div className='h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
+                    <div className='div h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
                         <div>
                             <label className='font-bold text-lg text-gray-500'>Orders</label>
                             <h3 className='text-3xl font-bold text-gray-800'>2,890</h3>
@@ -89,7 +120,7 @@ export default function Sales() {
                             <span className="text-gray-400 text-xs">esta semana</span>
                         </div>
                     </div>
-                    <div className='h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
+                    <div className='div h-60 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between p-5'>
                         <div>
                             <label className='font-bold text-lg text-gray-500'>Conversion Rate</label>
                             <h3 className='text-3xl font-bold text-gray-800'>3.8%</h3>
@@ -110,7 +141,7 @@ export default function Sales() {
                         </div>
                     </div>
                 </div>
-                <div className='w-full bg-white p-4 lg:p-6 rounded-2xl shadow-sm border border-gray-100'>
+                <div className='chart-content w-full bg-white p-4 lg:p-6 rounded-2xl shadow-sm border border-gray-100'>
                     <h2 className="text-xl font-bold mb-6 text-gray-800">Sales Performance</h2>
                     <div className='h-75 lg:h-100 w-full'>
                         <ResponsiveContainer width="100%" height="100%">
@@ -132,7 +163,7 @@ export default function Sales() {
                     </div>
                 </div>
             </div>
-            <div className='w-full lg:w-80 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mt-4 lg:mt-0'>
+            <div className='chart-content w-full lg:w-80 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mt-4 lg:mt-0'>
                 <h2 className="text-xl font-bold text-gray-800 mb-6">Top Selling Products</h2>
                 <div className="space-y-6">
                     {topProducts.map((product) => (

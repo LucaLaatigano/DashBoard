@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import defaultImg from "../Images/empresario.jpg"
 import { useUserContext } from "../Context/UsersContext";
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
 
 export default function Users() {
     const { users, setUsers, loading } = useUserContext()
@@ -21,6 +24,7 @@ export default function Users() {
     const newUserModal = useRef(null)
     const fileRef = useRef(null)
     const newAvatarRef = useRef(null)
+    const container = useRef()
 
     const allFilteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(inputField.toLowerCase())
@@ -30,6 +34,38 @@ export default function Users() {
     const firstIndex = lastIndex - usersPerPage;
     const currentUsers = allFilteredUsers.slice(firstIndex, lastIndex);
     const totalPages = Math.ceil(allFilteredUsers.length / usersPerPage);
+
+    useGSAP(() => {
+        const titleSplit = new SplitText(".title", { type: "chars, words" })
+        gsap.from(titleSplit.chars, {
+            yPercent: 70,
+            stagger: 0.03,
+            duration: 0.5,
+            ease: "power1.in"
+        })
+        gsap.from(".btn-el", {
+            x: 100,
+            opacity: 0,
+            duration: 1,
+            delay: 0.3,
+            ease: "power2.inOut"
+        })
+        gsap.from(".table-el", {
+            y: 100,
+            scale: 0.90,
+            duration: 1,
+            delay: 0.3,
+            ease: "power2.in"
+        })
+    }, { scope: container })
+
+    useGSAP(() => {
+        if (loading || currentUsers.length === 0) return
+        const tl = gsap.timeline()
+        tl.from("thead", { opacity: 0, y: -15, duration: 0.4, delay: 0.3 })
+            .from("tbody tr", { opacity: 0, y: 20, stagger: 0.08, duration: 0.5, delay: 0.3 }, "-=0.1")
+            .from("tbody img", { scale: 0, stagger: 0.08, ease: "back.out(1.7)" }, "-=0.3")
+    }, { scope: container, dependencies: [currentUsers] })
 
     const handleSave = () => {
         const updatedUsers = users.map(user => user.id === selectedUser.id ? selectedUser : user)
@@ -74,19 +110,18 @@ export default function Users() {
     }, []);
 
     return (
-        <div className="bg-[#f8fafc] flex-1 p-2 md:p-5 min-h-screen">
+        <div ref={container} className="bg-[#f8fafc] flex-1 p-2 md:p-5 min-h-screen">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                <h3 className="font-bold text-2xl md:text-3xl text-gray-800">System Users</h3>
+                <h3 className="title font-bold text-2xl md:text-3xl text-gray-800">System Users</h3>
                 <button
                     onClick={() => setNewPerson(true)}
-                    className="w-full sm:w-auto px-5 py-2 rounded-lg bg-[#2563eb] text-white font-medium hover:bg-blue-700 transition-colors shadow-sm"
+                    className="btn-el w-full sm:w-auto px-5 py-2 rounded-lg bg-[#2563eb] text-white font-medium hover:bg-blue-700 transition-colors shadow-sm"
                 >
                     Add New User +
                 </button>
             </div>
 
-            <div className="bg-white border border-gray-200 shadow-sm rounded-xl overflow-hidden">
-
+            <div className="table-el bg-white border border-gray-200 shadow-sm rounded-xl overflow-hidden">
                 <div className="flex justify-stretch sm:justify-end p-4 border-b border-gray-200">
                     <div className="relative w-full sm:w-72">
                         <input
@@ -159,6 +194,7 @@ export default function Users() {
                     ))}
                 </div>
             </div>
+
             {(selectedUser || newPerson) && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
                     <div
@@ -169,7 +205,6 @@ export default function Users() {
                             <h4 className="text-xl font-bold text-gray-800">{selectedUser ? 'Edit User' : 'New User'}</h4>
                             <button onClick={() => { setSelectedUser(null); setNewPerson(false); }} className="text-gray-400 text-2xl">✕</button>
                         </div>
-
                         <div className="space-y-4">
                             <div className="grid grid-cols-1 gap-4">
                                 <div>
@@ -202,18 +237,15 @@ export default function Users() {
                                     />
                                 </div>
                             </div>
-
                             <div className="pt-4 flex flex-col sm:flex-row gap-3">
                                 <input type="file" ref={selectedUser ? newAvatarRef : fileRef} className="hidden"
                                     onChange={(e) => handleFileRead(e, (res) => selectedUser ? setSelectedUser({ ...selectedUser, avatar: res }) : setNewUserInput({ ...newUserInput, avatar: res }))} />
-
                                 <button
                                     onClick={() => (selectedUser ? newAvatarRef : fileRef).current.click()}
                                     className="flex-1 bg-gray-100 py-2.5 rounded-lg font-semibold text-gray-700 border border-gray-200"
                                 >
                                     📷 Change Photo
                                 </button>
-
                                 <button
                                     onClick={selectedUser ? handleSave : handleAddNewUser}
                                     className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors"

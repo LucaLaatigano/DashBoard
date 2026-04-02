@@ -6,14 +6,17 @@ import Sales from "./Components/Sales"
 import Settings from "./Components/Settings"
 import Users from "./Components/Users"
 import NavBar from "./Components/NavBar";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
+gsap.registerPlugin(ScrollTrigger);
 const App = () => {
     return (
         <div className="flex h-screen bg-zinc-200 overflow-hidden">
             <SideBar />
             <div className="flex-1 flex flex-col min-w-0">
                 <NavBar />
-                <main className="flex-1 overflow-y-auto">
+                <main id="main-scroll" className="flex-1 overflow-y-auto">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/analytics" element={<Analytics />} />

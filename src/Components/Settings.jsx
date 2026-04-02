@@ -6,7 +6,9 @@ import { IoIosTimer } from "react-icons/io";
 import CheckBox from "./low-level-components/CheckBox";
 import { Link } from "react-router"
 import { useProfileContext } from "../Context/ProfileContext";
-
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/all";
 export default function Settings() {
     const { formData, setFormData } = useProfileContext()
     const [isSaved, setIsSaved] = useState(false)
@@ -22,6 +24,30 @@ export default function Settings() {
     })
     const fileInputRef = useRef(null)
     const cvInputRef = useRef(null)
+    const container = useRef()
+    useGSAP(() => {
+        const titleSplit = new SplitText(".title", { type: "chars,words" })
+        gsap.from(titleSplit.chars, {
+            yPercent: 70,
+            stagger: 0.03,
+            duration: 0.5,
+            ease: "power1.in"
+        })
+        gsap.from(".profile-el", {
+            x: -200,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.in",
+            delay: 0.5
+        })
+        gsap.from(".div-el", {
+            x: 200,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.in",
+            delay: 0.5
+        })
+    })
 
     const handleCheckBoxChange = (key) => {
         const updatedCheckBoxes = {
@@ -80,10 +106,10 @@ export default function Settings() {
     }
 
     return (
-        <div className="px-4 sm:px-6 lg:px-10 pt-2 mb-10">
-            <h3 className="text-3xl text-gray-800 font-bold">Settings</h3>
+        <div ref={container} className="px-4 sm:px-6 lg:px-10 pt-2 mb-10">
+            <h3 className="title text-3xl text-gray-800 font-bold">Settings</h3>
             <div className="flex flex-col lg:flex-row gap-6">
-                <div className="mt-5 w-full lg:w-170 bg-white rounded-2xl">
+                <div className="profile-el mt-5 w-full lg:w-170 bg-white rounded-2xl">
                     <h3 className="text-gray-800 font-bold text-2xl pt-3 pl-5">
                         Profile Settings
                     </h3>
@@ -139,7 +165,7 @@ export default function Settings() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5 w-full">
+                <div className="div-el grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5 w-full">
                     <div className="w-full bg-white rounded-2xl pl-3 pr-2 pb-4">
                         <h3 className="font-bold text-gray-800 text-2xl pl-3 pt-2 pb-3">
                             Account Security
@@ -166,8 +192,6 @@ export default function Settings() {
                             </div>
                         </Link>
                     </div>
-
-                    {/* Billing Plan */}
                     <div className="w-full bg-white rounded-2xl pl-3 pr-2 pb-4 flex flex-col gap-3">
                         <h3 className="font-bold text-2xl pl-3 pt-2 text-gray-800">Billing Plan</h3>
                         <div className="flex flex-col pl-3">
@@ -187,8 +211,6 @@ export default function Settings() {
                             </button>
                         </div>
                     </div>
-
-                    {/* Invoices */}
                     <div className="w-full bg-white rounded-2xl pl-3 pr-2 pb-4 flex flex-col gap-2">
                         <h3 className="font-bold text-2xl pl-3 pt-2 text-gray-800">Invoices</h3>
                         <div className="flex flex-col pl-3">
@@ -215,8 +237,6 @@ export default function Settings() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Email Notifications */}
                     <div className="w-full bg-white rounded-2xl pl-3 pr-2 pb-4 flex flex-col gap-2">
                         <h3 className="text-2xl font-bold pt-2 pl-3 text-gray-800">Email Notifications</h3>
                         <div className="flex flex-col gap-6 mt-2">
