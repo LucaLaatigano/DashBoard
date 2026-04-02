@@ -54,7 +54,7 @@ const SideBar = () => {
             {!isOpen && (
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="btn-open lg:hidden fixed top-5 left-4 z-50 p-2 bg-slate-900 text-white rounded-md hover:cursor-pointer shadow-lg"
+                    className="btn-open lg:hidden fixed top-2 left-2 z-50 p-2 bg-slate-900 text-white rounded-md hover:cursor-pointer shadow-lg"
                 >
                     <IoMenu size={28} />
                 </button>
